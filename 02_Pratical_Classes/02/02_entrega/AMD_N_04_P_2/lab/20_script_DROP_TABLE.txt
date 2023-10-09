@@ -1,0 +1,57 @@
+--#############
+--# Paulo Trigo
+--#############
+
+
+--=============
+-- Ligação à BD
+--=============
+\set DATABASE db_operational
+;
+\set USERNAME postgres
+;
+\connect :DATABASE :USERNAME
+;
+--==========================
+--==========================
+
+
+--==============================
+-- DROP CONSTRAINTS
+--==============================
+-- Drop constraints for table R2
+ALTER TABLE R2
+DROP CONSTRAINT fk1_R2;
+
+-- Drop constraints for table R3
+ALTER TABLE R3
+DROP CONSTRAINT fk1_R3;
+
+-- Drop constraints for table R3
+ALTER TABLE R3
+DROP CONSTRAINT fk2_R3;
+
+-- Drop constraints for table R1
+ALTER TABLE R1
+DROP CONSTRAINT ak1_R1;
+
+-- Drop constraints for table R2
+ALTER TABLE R2
+DROP CONSTRAINT pk_R2;
+
+-- Drop constraints for table R3
+ALTER TABLE R3
+DROP CONSTRAINT pk_R3;
+
+-- Drop constraints for table R4
+ALTER TABLE R4
+DROP CONSTRAINT pk_R4;
+
+--==============================
+-- DROP TABLES
+--==============================
+-- Drop tables
+DROP TABLE IF EXISTS R1;
+DROP TABLE IF EXISTS R2;
+DROP TABLE IF EXISTS R3;
+DROP TABLE IF EXISTS R4;

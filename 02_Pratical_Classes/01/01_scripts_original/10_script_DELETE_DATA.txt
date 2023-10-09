@@ -1,0 +1,26 @@
+--#############
+--# Paulo Trigo
+--#############
+
+
+--=============
+-- Ligação à BD
+--=============
+\set dataBase db_operational
+;
+\set userName postgres
+;
+\connect :dataBase :userName
+;
+--==========================
+--==========================
+
+
+--===============
+-- drop data
+--===============
+-- DELETE FROM ...
+-- ;
+
+-- DELETE FROM ...
+-- ;
