@@ -1,0 +1,94 @@
+--#############
+--# AMD GXX
+--#############
+
+
+
+--==============
+-- DB connection
+--==============
+\set dataBase db_medknow
+;
+\set userName postgres
+;
+\connect :dataBase :userName
+;
+--==========================
+--==========================
+
+---------------------------------
+DELETE FROM Visit;
+DELETE FROM Prescription;
+DELETE FROM Patient;
+DELETE FROM Doctor;
+DELETE FROM EyeCondition;
+---------------------------------
+
+-- Populating tables with sample data
+-- EyeCondition
+INSERT INTO EyeCondition VALUES 
+(1, 'myope'), 
+(2, 'hypermetrope');
+
+-- Doctor
+INSERT INTO Doctor VALUES 
+(1, 'Doctor 1', 'Ophthalmologist'), 
+(2, 'Doctor 2', 'Ophthalmologist');
+
+-- Patient
+INSERT INTO Patient (PatientID, Name, BirthDate, ConditionID, DoctorID) VALUES 
+(1, 'Patient 1', '1992-06-15', 1, 1), 
+(2, 'Patient 2', '1987-04-23', 1, 2), 
+(3, 'Patient 3', '1995-11-02', 2, 1),
+(4, 'Patient 4', '1995-11-02', 2, 1),
+(5, 'Patient 5', '1995-11-02', 2, 1),
+(6, 'Patient 6', '1995-11-02', 1, 1),
+(7, 'Patient 7', '1995-11-02', 1, 1),
+(8, 'Patient 8', '1995-11-02', 2, 1),
+(9, 'Patient 9', '1995-11-02', 2, 1),
+(10, 'Patient 10', '1995-11-02', 2, 1),
+(11, 'Patient 11', '1995-11-02', 2, 1),
+(12, 'Patient 12', '1995-11-02', 1, 1),
+(13, 'Patient 13', '1995-11-02', 1, 1),
+(14, 'Patient 14', '1995-11-02', 1, 1),
+(15, 'Patient 15', '1995-11-02', 2, 1),
+(16, 'Patient 16', '1997-05-17', 2, 2);
+
+-- Prescription
+-- PrescriptionID,PatientID,DoctorID,Date,Age,Astigmatic,TearRate,Lenses,PatientID,DoctorID
+INSERT INTO Prescription VALUES 
+(1, 1, 1, '2023-10-01', 'young', 'yes', 'normal', 'hard'),
+(2, 2, 2, '2023-10-01', 'young', 'no', 'normal', 'soft'),
+(3, 3, 1, '2023-10-01', 'young', 'yes', 'reduced', 'none'),
+(4, 4, 2, '2023-10-02', 'young', 'no', 'normal', 'soft'),
+(5, 5, 1, '2023-10-03', 'young', 'no', 'reduced', 'none'),
+(6, 6, 2, '2023-10-03', 'presbyopic', 'yes', 'reduced', 'none'),
+(7, 7, 1, '2023-10-04', 'presbyopic', 'yes', 'normal', 'hard'),
+(8, 8, 2, '2023-10-04', 'presbyopic', 'yes', 'reduced', 'none'),
+(9, 9, 1, '2023-10-04', 'presbyopic', 'yes', 'normal', 'none'),
+(10, 10, 2, '2023-10-06', 'presbyopic', 'no', 'normal', 'soft'),
+(11, 11, 1, '2023-10-06', 'presbyopic', 'no', 'reduced', 'none'),
+(12, 12, 2, '2023-10-06', 'pre-presbyopic', 'yes', 'reduced', 'none'),
+(13, 13, 1, '2023-10-07', 'pre-presbyopic', 'yes', 'normal', 'hard'),
+(14, 14, 2, '2023-10-07', 'pre-presbyopic', 'no', 'normal', 'soft'),
+(15, 15, 1, '2023-10-07', 'pre-presbyopic', 'yes', 'normal', 'none'),
+(16, 16, 2, '2023-10-08', 'pre-presbyopic', 'no', 'normal', 'soft');
+
+-- Visit
+INSERT INTO Visit (VisitID, PatientID, DoctorID, VisitDate, PrescriptionID) VALUES 
+(1, 1, 1, '2023-10-01 14:00:00', 1), 
+(2, 2, 2, '2023-10-01 15:00:00', 2), 
+(3, 3, 1, '2023-10-01 16:00:00', 3),
+(4, 4, 2, '2023-10-02 10:00:00', 4), 
+(5, 1, 1, '2023-10-03 11:00:00', 5),
+(6, 2, 2, '2023-10-03 14:00:00', 6),
+(7, 3, 1, '2023-10-04 10:00:00', 7),
+(8, 4, 2, '2023-10-04 14:00:00', 8),
+(9, 1, 1, '2023-10-04 16:00:00', 9),
+(10, 2, 2, '2023-10-06 10:00:00', 10),
+(11, 3, 1, '2023-10-06 11:00:00', 11),
+(12, 4, 2, '2023-10-06 15:00:00', 12),
+(13, 1, 1, '2023-10-07 10:00:00', 13),
+(14, 2, 2, '2023-10-07 11:00:00', 14),
+(15, 3, 1, '2023-10-07 14:00:00', 15),
+(16, 4, 2, '2023-10-08 16:00:00', 16);

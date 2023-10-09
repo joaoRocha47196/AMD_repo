@@ -1,0 +1,41 @@
+--#############
+--# AMD GXX
+--#############
+
+
+
+--==============
+-- DB connection
+--==============
+\set dataBase db_medknow
+;
+\set userName postgres
+;
+\connect :dataBase :userName
+;
+--==========================
+--==========================
+
+---------------------------------
+DROP VIEW IF EXISTS LensesDataView;
+
+---------------------------------
+
+
+
+CREATE VIEW LensesDataView AS
+SELECT 
+    p.Age,
+    ec.ConditionName AS Prescription,
+    p.Astigmatic,
+    p.TearRate,
+    p.Lenses
+FROM 
+    Prescription p
+JOIN 
+    Patient pa ON p.PatientID = pa.PatientID
+JOIN 
+    EyeCondition ec ON pa.ConditionID = ec.ConditionID;
+
+
+SELECT * FROM LensesDataView;
