@@ -1,1 +1,0 @@
-https://github.com/joaoRocha47196/AMD_repo
