@@ -1,1 +1,0 @@
-_go 00_script_CREATE_DB.txt

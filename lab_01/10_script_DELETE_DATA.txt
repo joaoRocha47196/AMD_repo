@@ -1,0 +1,22 @@
+--=============
+-- Ligão BD
+--=============
+\set dataBase db_operational
+;
+\set userName postgres
+;
+\connect :dataBase :userName
+;
+--==========================
+--==========================
+
+
+--===============
+-- drop data
+--===============
+-- foreign keys
+DELETE FROM R2;
+DELETE FROM R3;
+
+DELETE FROM R1;
+DELETE FROM R4;

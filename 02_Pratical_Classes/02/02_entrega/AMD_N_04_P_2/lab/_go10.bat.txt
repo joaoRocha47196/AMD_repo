@@ -1,1 +1,0 @@
-_go 10_script_DELETE_DATA.txt

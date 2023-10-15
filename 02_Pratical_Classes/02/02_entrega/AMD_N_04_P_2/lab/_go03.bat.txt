@@ -1,1 +1,0 @@
-_go 03_script_CREATE_VIEW.txt
