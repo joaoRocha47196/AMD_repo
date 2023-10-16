@@ -27,7 +27,6 @@ from u01_util import my_print
 import Orange as DM
 
 
-
 #_______________________________________________________________________________
 # read a "dataset"
 # the file name (that can be passed in the command line)
@@ -41,12 +40,26 @@ except:
    my_print( "--->>> error - can not open the file: %s" % fileName )
    exit()
 
+#_______________________________________________________________________________
+# Prints
+print("::::::::::::::::::::::::::::::::::::: Prints :::::::::::::::::::::::::::: ")
+print("_______ dataset _______ ")
+print(dataset)
+print("_______ domain _______ ")
+print(dataset.domain)
+print("_______ variables _______ ")
+print(dataset.domain.variables)
+print("_______ attributes _______ ")
+print(dataset.domain.attributes)
 
-
+#'''
 #_______________________________________________________________________________
 # variables: name (type = discrete | continuous): [value1, value2, ...]
 # variables, in Orange, refer to features or class
 # cf., http://docs.orange.biolab.si/3/data-mining-library/tutorial/data.html#exploration-of-the-data-domain
+
+print("::::::::::::::::::::::::::::::::::::: Execution :::::::::::::::::::::::::::: ")
+
 variable_list = dataset.domain.variables
 #variable_list = dataset.domain.attributes
 
@@ -57,7 +70,7 @@ nDisc=0; nCont=0; nStr=0;
 for variable in variable_list:
    print( ":: %s %s" % ( variable.name, variable.TYPE_HEADERS ) ),
    if variable.is_discrete:
-      print( ": %s " % variable.values )
+      #print( ": %s " % variable.values )
       nDisc += 1
    elif variable.is_continuous:
       nCont += 1
@@ -72,8 +85,8 @@ my_print( ">> Types: %d discrete, %d continuous <<" % ( nDisc, nCont ) )
 the_class = dataset.domain.class_var
 my_print( ">> Class <<" )
 print( ":: %s (%s): %s " % ( the_class.name,
-                             the_class.TYPE_HEADERS,
-                             the_class.values ) )
+                           the_class.TYPE_HEADERS,
+                           the_class.values ) )
 
 
 
@@ -83,5 +96,5 @@ N = 20
 my_print( "First %d instances:" % N )
 for i in range( N ): print( dataset[ i ] )
 
-
+#'''
 
