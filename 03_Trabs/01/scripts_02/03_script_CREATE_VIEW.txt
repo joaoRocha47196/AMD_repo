@@ -16,26 +16,36 @@
 --==========================
 --==========================
 
----------------------------------
-DROP VIEW IF EXISTS LensesDataView;
+DROP VIEW IF EXISTS view_dataset;
 
----------------------------------
-
-
-
-CREATE VIEW LensesDataView AS
+CREATE OR REPLACE VIEW view_dataset AS
 SELECT 
-    p.Age,
-    ec.ConditionName AS Prescription,
-    p.Astigmatic,
-    p.TearRate,
-    p.Lenses
-FROM 
-    Prescription p
-JOIN 
-    Patient pa ON p.PatientID = pa.PatientID
-JOIN 
-    EyeCondition ec ON pa.ConditionID = ec.ConditionID;
+    d.PatientID,
+    d.OcularAge AS age,
+    CASE 
+        WHEN p.LensHardness IS NULL THEN 'hypermetrope'
+        ELSE 'myope'
+    END AS prescription,
+    CASE 
+        WHEN dd.DiseaseID = 1 THEN 'yes'
+        ELSE 'no'
+    END AS astigmatic,
+    CASE 
+        WHEN d.TearRate > 0.5 THEN 'normal'
+        ELSE 'reduced'
+    END AS tearrate,
+    CASE 
+        WHEN p.LensHardness IS NULL THEN 'none'
+        WHEN p.LensHardness > 0.5 THEN 'hard'
+        ELSE 'soft'
+    END AS lenses
+FROM Diagnosis d
+JOIN Prescription p ON d.DiagnosisID = p.PrescriptionID
+JOIN Diagnosis_Disease dd ON d.DiagnosisID = dd.DiagnosisID;
 
 
-SELECT * FROM LensesDataView;
+SELECT * FROM view_dataset;
+
+-- SELECT * FROM Diagnosis;
+-- SELECT * FROM Prescription;
+-- SELECT * FROM Diagnosis_Disease;

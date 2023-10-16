@@ -17,59 +17,78 @@
 --==========================
 
 
--- Deleting tables if exist
-DROP TABLE IF EXISTS Visit CASCADE;
-DROP TABLE IF EXISTS Prescription CASCADE;
-DROP TABLE IF EXISTS Patient CASCADE;
-DROP TABLE IF EXISTS Doctor CASCADE;
-DROP TABLE IF EXISTS EyeCondition CASCADE;
+-- Deleting Tables if They Exist
+DROP TABLE IF EXISTS DIAGNOSIS_DISEASE CASCADE;
+DROP TABLE IF EXISTS APPOINTMENT CASCADE;
+DROP TABLE IF EXISTS DIAGNOSIS CASCADE;
+DROP TABLE IF EXISTS PRESCRIPTION CASCADE;
+DROP TABLE IF EXISTS DISEASE CASCADE;
+DROP TABLE IF EXISTS DOCTOR CASCADE;
+DROP TABLE IF EXISTS PATIENT CASCADE;
 
 -------------------------------
 ------- create table ----------
 -------------------------------
-CREATE TABLE EyeCondition (
-    ConditionID INT PRIMARY KEY,
-    ConditionName VARCHAR(30)
+
+CREATE TABLE Patient (
+    PatientID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    BirthDate DATE NOT NULL,
+    ContactInfo VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Doctor (
     DoctorID INT PRIMARY KEY,
-    Name VARCHAR(50),
-    Specialty VARCHAR(50)
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Specialty VARCHAR(50) NOT NULL,
+    ContactInfo VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Patient (
-    PatientID INT PRIMARY KEY,
-    Name VARCHAR(50),
-    BirthDate DATE,
-    ConditionID INT,
-    DoctorID INT,
-    FOREIGN KEY (ConditionID) REFERENCES EyeCondition(ConditionID),
-    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
+CREATE TABLE Disease (
+    DiseaseID INT PRIMARY KEY,
+    DiseaseName VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Prescription ( 
+CREATE TABLE Prescription (
     PrescriptionID INT PRIMARY KEY,
+    LensHardness FLOAT,
+    DatePrescribed DATE NOT NULL,
     PatientID INT,
     DoctorID INT,
-    Date DATE,
-    Age VARCHAR(20),
-    Astigmatic VARCHAR(3),
-    TearRate VARCHAR(10),
-    Lenses VARCHAR(10),
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
     FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
 );
 
-CREATE TABLE Visit (
-    VisitID INT PRIMARY KEY,
+CREATE TABLE Diagnosis (
+    DiagnosisID INT PRIMARY KEY,
+    DateDiagnosed DATE NOT NULL,
+    OcularAge VARCHAR(50) NOT NULL,
+    TearRate FLOAT NOT NULL,
     PatientID INT,
     DoctorID INT,
-    VisitDate TIMESTAMP,
+    FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
+    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
+);
+
+CREATE TABLE Appointment (
+    AppointmentID INT PRIMARY KEY,
+    VisitDate TIMESTAMP NOT NULL,
+    PatientID INT,
+    DoctorID INT,
     PrescriptionID INT,
     FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
     FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
     FOREIGN KEY (PrescriptionID) REFERENCES Prescription(PrescriptionID)
 );
 
--- \d EyeCondition;
+CREATE TABLE Diagnosis_Disease ( 
+    DiagnosisID INT,
+    DiseaseID INT,
+    PRIMARY KEY (DiagnosisID, DiseaseID),
+    FOREIGN KEY (DiagnosisID) REFERENCES DIAGNOSIS(DiagnosisID),
+    FOREIGN KEY (DiseaseID) REFERENCES DISEASE(DiseaseID)
+);
+
+-- \d Appointment;

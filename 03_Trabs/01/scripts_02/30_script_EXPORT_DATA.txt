@@ -12,4 +12,5 @@
 --==========================
 --==========================
 
-\COPY (SELECT * FROM LensesDataView) TO './view_export.csv' WITH CSV HEADER DELIMITER ';';
+\COPY (SELECT * FROM view_dataset) TO './view_export.csv' WITH CSV HEADER DELIMITER ';';
+                
