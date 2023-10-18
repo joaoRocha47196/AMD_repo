@@ -1,0 +1,54 @@
+<mxfile host="app.diagrams.net" modified="2023-10-10T17:06:52.169Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="AyksjENBmjx6SqH9nUlA" version="22.0.4" type="device">
+  <diagram name="Página-1" id="dtmcC5j8AHoGa_XB2pSu">
+    <mxGraphModel dx="955" dy="485" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-1" value="Cliente&lt;br&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="258" y="427" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-2" value="Administrador&lt;br&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="256" y="557" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-12" value="" style="rounded=0;whiteSpace=wrap;html=1;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="310" y="440" width="310" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-10" value="Funcionalidades do cliente" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="410" y="410" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-11" value="Funcionalidades do administrador" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="410" y="540" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-13" value="App" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="497" y="355" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=47;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="sfhcN0vbV4pAbRvPs4VO-1" target="sfhcN0vbV4pAbRvPs4VO-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=47;entryPerimeter=0;endArrow=none;endFill=0;" edge="1" parent="1" source="sfhcN0vbV4pAbRvPs4VO-2" target="sfhcN0vbV4pAbRvPs4VO-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-16" value="" style="rounded=0;whiteSpace=wrap;html=1;rotation=90;" vertex="1" parent="1">
+          <mxGeometry x="902.5" y="437.5" width="395" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-17" value="&lt;b&gt;Funcionalidades do cliente&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="340" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=110;exitDy=47;exitPerimeter=0;dashed=1;" edge="1" parent="1" source="sfhcN0vbV4pAbRvPs4VO-18">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="999.9999999999998" y="386.81818181818176" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-18" value="Funcionalidades do cliente" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="825" y="340" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-22" value="&lt;b&gt;Login&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="sfhcN0vbV4pAbRvPs4VO-23" value="&lt;b&gt;Logout&lt;br&gt;&lt;/b&gt;" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="730" y="577.5" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
