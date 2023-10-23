@@ -12,5 +12,5 @@
 --==========================
 --==========================
 
-\COPY (SELECT * FROM view_dataset) TO './view_export.csv' WITH CSV HEADER DELIMITER ';';
+\COPY (SELECT age, prescription, astigmatic, tear_rate, lenses FROM view_dataset) TO './view_export.csv' WITH CSV HEADER DELIMITER ';';
                 

@@ -18,14 +18,14 @@
 
 
 -- Deleting Tables if They Exist
-DROP TABLE IF EXISTS DIAGNOSIS_DISEASE CASCADE;
-DROP TABLE IF EXISTS APPOINTMENT CASCADE;
-DROP TABLE IF EXISTS DIAGNOSIS CASCADE;
-DROP TABLE IF EXISTS PRESCRIPTION CASCADE;
-DROP TABLE IF EXISTS DISEASE CASCADE;
-DROP TABLE IF EXISTS DOCTOR CASCADE;
-DROP TABLE IF EXISTS PATIENT CASCADE;
-
+DROP TABLE IF EXISTS Appointment_Disease CASCADE;
+DROP TABLE IF EXISTS Appointment CASCADE;
+DROP TABLE IF EXISTS Disease CASCADE;
+DROP TABLE IF EXISTS Doctor CASCADE;
+DROP TABLE IF EXISTS Patient CASCADE;
+DROP TABLE IF EXISTS OcularAge CASCADE;
+DROP TABLE IF EXISTS LensHardness CASCADE;
+DROP TABLE IF EXISTS TearRate CASCADE;
 -------------------------------
 ------- create table ----------
 -------------------------------
@@ -51,20 +51,10 @@ CREATE TABLE Disease (
     DiseaseName VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE Prescription (
-    PrescriptionID INT PRIMARY KEY,
+CREATE TABLE Appointment (
+    AppointmentID INT PRIMARY KEY,
+    VisitDate TIMESTAMP NOT NULL,
     LensHardness FLOAT,
-    DatePrescribed DATE NOT NULL,
-    PatientID INT,
-    DoctorID INT,
-    FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
-    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
-);
-
-CREATE TABLE Diagnosis (
-    DiagnosisID INT PRIMARY KEY,
-    DateDiagnosed DATE NOT NULL,
-    OcularAge VARCHAR(50) NOT NULL,
     TearRate FLOAT NOT NULL,
     PatientID INT,
     DoctorID INT,
@@ -72,23 +62,27 @@ CREATE TABLE Diagnosis (
     FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
 );
 
-CREATE TABLE Appointment (
-    AppointmentID INT PRIMARY KEY,
-    VisitDate TIMESTAMP NOT NULL,
-    PatientID INT,
-    DoctorID INT,
-    PrescriptionID INT,
-    FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
-    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID),
-    FOREIGN KEY (PrescriptionID) REFERENCES Prescription(PrescriptionID)
-);
-
-CREATE TABLE Diagnosis_Disease ( 
-    DiagnosisID INT,
+CREATE TABLE Appointment_Disease ( 
+    AppointmentID INT,
     DiseaseID INT,
-    PRIMARY KEY (DiagnosisID, DiseaseID),
-    FOREIGN KEY (DiagnosisID) REFERENCES DIAGNOSIS(DiagnosisID),
-    FOREIGN KEY (DiseaseID) REFERENCES DISEASE(DiseaseID)
+    PRIMARY KEY (AppointmentID, DiseaseID),
+    FOREIGN KEY (AppointmentID) REFERENCES Appointment(AppointmentID),
+    FOREIGN KEY (DiseaseID) REFERENCES Disease(DiseaseID)
 );
 
--- \d Appointment;
+CREATE TABLE OcularAge (  
+    MaxLimit INT NOT NULL,
+    MinLimit INT NOT NULL,
+    PRIMARY KEY (MaxLimit, MinLimit)
+);
+
+CREATE TABLE LensHardness (
+    MaxLimit FLOAT NOT NULL,
+    MinLimit FLOAT NOT NULL,
+    PRIMARY KEY (MaxLimit, MinLimit)
+);
+
+CREATE TABLE TearRate (
+    MidLimit FLOAT NOT NULL,
+    PRIMARY KEY (MidLimit)
+);

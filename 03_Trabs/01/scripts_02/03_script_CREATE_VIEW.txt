@@ -20,32 +20,45 @@ DROP VIEW IF EXISTS view_dataset;
 
 CREATE OR REPLACE VIEW view_dataset AS
 SELECT 
-    d.PatientID,
-    d.OcularAge AS age,
+    a.PatientID as PatientID,
     CASE 
-        WHEN p.LensHardness IS NULL THEN 'hypermetrope'
-        ELSE 'myope'
+        WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.BirthDate)) BETWEEN 0 AND (SELECT MinLimit FROM OcularAge) THEN 'young'
+        WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.BirthDate)) BETWEEN (SELECT (MinLimit + 1) FROM OcularAge) AND (SELECT MaxLimit FROM OcularAge) THEN 'presbyopic'
+        ELSE 'pre-presbyopic'
+    END AS age,
+    CASE 
+        WHEN d.DiseaseID = 2 THEN 'myope'
+        WHEN d.DiseaseID = 3 THEN 'hypermetrope'
+        ELSE NULL
     END AS prescription,
     CASE 
-        WHEN dd.DiseaseID = 1 THEN 'yes'
+        WHEN EXISTS (SELECT 1 FROM Appointment_Disease ad2 WHERE ad2.AppointmentID = a.AppointmentID AND ad2.DiseaseID = 1) THEN 'yes'
         ELSE 'no'
     END AS astigmatic,
     CASE 
-        WHEN d.TearRate > 0.5 THEN 'normal'
+        WHEN a.TearRate >= 0.5 THEN 'normal'
         ELSE 'reduced'
-    END AS tearrate,
+    END AS tear_rate,
     CASE 
-        WHEN p.LensHardness IS NULL THEN 'none'
-        WHEN p.LensHardness > 0.5 THEN 'hard'
+        WHEN a.LensHardness <= (SELECT MinLimit FROM LensHardness) THEN 'none'
+        WHEN a.LensHardness >= (SELECT MaxLimit FROM LensHardness) THEN 'hard'
         ELSE 'soft'
     END AS lenses
-FROM Diagnosis d
-JOIN Prescription p ON d.DiagnosisID = p.PrescriptionID
-JOIN Diagnosis_Disease dd ON d.DiagnosisID = dd.DiagnosisID;
-
+FROM 
+    Patient p
+JOIN 
+    Appointment a ON p.PatientID = a.PatientID
+LEFT JOIN 
+    Appointment_Disease ad ON a.AppointmentID = ad.AppointmentID
+LEFT JOIN 
+    Disease d ON ad.DiseaseID = d.DiseaseID
+WHERE 
+    d.DiseaseID IN (2, 3)
+ORDER BY 
+    PatientID, age, prescription, astigmatic, tear_rate, lenses;
 
 SELECT * FROM view_dataset;
 
--- SELECT * FROM Diagnosis;
--- SELECT * FROM Prescription;
--- SELECT * FROM Diagnosis_Disease;
+-- SELECT (MinLimit + 1) FROM OcularAge;
+
+-- Create VIEW
