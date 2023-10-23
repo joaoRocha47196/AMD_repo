@@ -16,34 +16,40 @@
 --==========================
 --==========================
 
+DROP VIEW IF EXISTS view_export;
+DROP VIEW IF EXISTS view_attrType;
+DROP VIEW IF EXISTS view_class;
 DROP VIEW IF EXISTS view_dataset;
+
+-- TODO view_domain
 
 CREATE OR REPLACE VIEW view_dataset AS
 SELECT 
-    a.PatientID as PatientID,
+    3 AS ordering,
+    a.PatientID as VC1,
     CASE 
         WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.BirthDate)) BETWEEN 0 AND (SELECT MinLimit FROM OcularAge) THEN 'young'
         WHEN EXTRACT(YEAR FROM AGE(CURRENT_DATE, p.BirthDate)) BETWEEN (SELECT (MinLimit + 1) FROM OcularAge) AND (SELECT MaxLimit FROM OcularAge) THEN 'presbyopic'
         ELSE 'pre-presbyopic'
-    END AS age,
+    END AS VC2,
     CASE 
         WHEN d.DiseaseID = 2 THEN 'myope'
         WHEN d.DiseaseID = 3 THEN 'hypermetrope'
         ELSE NULL
-    END AS prescription,
+    END AS VC3,
     CASE 
         WHEN EXISTS (SELECT 1 FROM Appointment_Disease ad2 WHERE ad2.AppointmentID = a.AppointmentID AND ad2.DiseaseID = 1) THEN 'yes'
         ELSE 'no'
-    END AS astigmatic,
+    END AS VC4,
     CASE 
-        WHEN a.TearRate >= (SELECT MidLimit FROM TearRate) THEN 'normal'
+        WHEN a.TearRate >= 0.5 THEN 'normal'
         ELSE 'reduced'
-    END AS tear_rate,
+    END AS VC5,
     CASE 
         WHEN a.LensHardness <= (SELECT MinLimit FROM LensHardness) THEN 'none'
         WHEN a.LensHardness >= (SELECT MaxLimit FROM LensHardness) THEN 'hard'
         ELSE 'soft'
-    END AS lenses
+    END AS VC6
 FROM 
     Patient p
 JOIN 
@@ -55,10 +61,43 @@ LEFT JOIN
 WHERE 
     d.DiseaseID IN (2, 3)
 ORDER BY 
-    PatientID, age, prescription, astigmatic, tear_rate, lenses;
+    VC1;
 
-SELECT * FROM view_dataset;
+-- SELECT VC2, VC3, VC4, VC5, VC6 FROM view_dataset;
+
+CREATE OR REPLACE VIEW view_attrType AS
+SELECT 
+    1 AS ordering,
+    'age'::text AS VC2,
+    'prescription'::text AS VC3,
+    'astigmatic'::text AS VC4,
+    'tear_rate'::text AS VC5,
+    'lenses'::text AS VC6;
+
+-- SELECT * FROM view_attrType;
+
+CREATE OR REPLACE VIEW view_class AS
+SELECT 
+    2 AS ordering,
+    ''::text AS VC2,
+    ''::text AS VC3,
+    ''::text AS VC4,
+    ''::text AS VC5,
+    'class'::text AS VC6;
+
+CREATE OR REPLACE VIEW view_export AS
+SELECT ordering, VC2, VC3, VC4, VC5,VC6
+FROM (
+    SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_attrType
+    UNION ALL
+    SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_class
+    UNION ALL
+    SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_dataset
+) AS combined_views
+ORDER BY ordering;
 
 -- SELECT (MinLimit + 1) FROM OcularAge;
-
 -- Create VIEW
+
+
+SELECT * FROM view_export;
