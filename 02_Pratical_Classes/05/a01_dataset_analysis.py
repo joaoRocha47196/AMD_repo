@@ -179,9 +179,9 @@ def show_conditionalProbability( dataset, H, E ):
 # implementation of some test cases
 def test():
    #fileName = "./_dataset/adult_sample"
-   fileName = "./_dataset/lenses"
+   #fileName = "./_dataset/lenses"
    #fileName = "./_dataset/lenses_with_missingValues"
-   #fileName = "./_dataset/lenses_fromLecture"
+   fileName = "./_dataset/lenses_fromLecture"
    dataset = load( fileName )
 
    print()
