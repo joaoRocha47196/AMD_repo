@@ -83,12 +83,16 @@ class OneR:
             print(f"({entry[0]}, {entry[1]}, {entry[2]}) : ({entry[3]}, {entry[4]})")
 
 
+def main():
+    filename = 'd01_lenses.tab'
+    one_r_classifier = OneR(filename)
+    one_r_classifier.compute_frequency_tables()
+    one_r_classifier.compute_rules_and_errors()
+    one_r_classifier.print_hypotheses()
+    one_r_classifier.print_attr_accuracy()
+    one_r_classifier.print_best_rules()
 
-# Usage
-filename = 'd01_lenses.tab'
-one_r_classifier = OneR(filename)
-one_r_classifier.compute_frequency_tables()
-one_r_classifier.compute_rules_and_errors()
-one_r_classifier.print_hypotheses()
-one_r_classifier.print_attr_accuracy()
-one_r_classifier.print_best_rules()
+if __name__ == "__main__":
+    main()
+
+
