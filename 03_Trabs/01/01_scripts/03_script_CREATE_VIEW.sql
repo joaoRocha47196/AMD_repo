@@ -27,7 +27,7 @@ DROP VIEW IF EXISTS view_dataset;
 --==========================
 CREATE VIEW view_dataset AS
 SELECT 
-    3 AS ordering,
+    4 AS ordering,
     a.PatientID as VC1,
     (
         SELECT oa.Val
@@ -76,6 +76,18 @@ ORDER BY
     VC1;
  
 --==========================
+-- DOMAIN VIEW
+--==========================
+CREATE OR REPLACE VIEW view_domain AS
+SELECT 
+    2 AS ordering,
+    'pre-presbyopic presbyopic young'::text AS VC2,
+    'hypermetrope myope'::text AS VC3,
+    'no yes'::text AS VC4,
+    'normal reduced'::text AS VC5,
+    'hard none soft'::text AS VC6;
+
+--==========================
 -- ATRIBUT VIEW
 --==========================
 CREATE OR REPLACE VIEW view_attrType AS
@@ -92,7 +104,7 @@ SELECT
 --==========================
 CREATE OR REPLACE VIEW view_class AS
 SELECT 
-    2 AS ordering,
+    3 AS ordering,
     ''::text AS VC2,
     ''::text AS VC3,
     ''::text AS VC4,
@@ -106,6 +118,8 @@ CREATE OR REPLACE VIEW view_export AS
 SELECT ordering, VC2, VC3, VC4, VC5,VC6
 FROM (
     SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_attrType
+    UNION ALL
+    SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_domain
     UNION ALL
     SELECT ordering, VC2, VC3, VC4, VC5, VC6 FROM view_class
     UNION ALL
