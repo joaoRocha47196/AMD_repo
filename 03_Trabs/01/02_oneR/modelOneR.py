@@ -1,48 +1,49 @@
 import sys
-from u01_util import my_print
+from utils import Utils
 import Orange as DM
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 class modelOneR:
+    '''
+    @param fileName: The iput file containing .tab data
+    @param testPercentage: The % of error
+    - Creates Utils instance 
+    - Loads Input File
+    - Initializes dataSets
+    '''
     def __init__(self, fileName, testPercentage):
-        self.dataset = self.load(fileName)
+        self.utils = Utils()
+        self.utils.logHeader("Staring Running OneR")
         self.rule = None
         self.minErrorAtribute = None
 
-        print("Full Dataset")
-        print(self.dataset)
+        # Original and Shufled DataSet
+        self.utils.log("Generated DataSets:")
+
+        self.dataset = self.utils.load(fileName)
+        self.utils.print_data_set("Full DataSet", self.dataset)
 
         self.dataset.shuffle()
+        self.utils.print_data_set("Shuffled DataSet", self.dataset)
 
-        print("Shuffled Dataset")
-        print(self.dataset)
-
+        # Divid original DataSet in Train and Test
         test = int(len(self.dataset) * testPercentage) + 1
         train = len(self.dataset) - test
 
         self.datasetTest = self.dataset[train:]
+        self.utils.print_data_set("Test DataSet", self.datasetTest)
+
         self.dataset = self.dataset[:train]
+        self.utils.print_data_set("Train DataSet", self.dataset)
 
-        print("Train Dataset")
-        print(self.dataset)
-
-        print("Test Dataset")
-        print(self.datasetTest)
-
-    def load(self, fileName):
-        try:
-            dataset = DM.data.Table(fileName)
-        except:
-            my_print(f":: Error - can not open the file: {fileName}")
-            sys.exit()
-        return dataset
-
+    '''
+    '''
     def get_variableFrom_str(self, dataset, str_name):
         variable_list = dataset.domain.variables
         for variable in variable_list:
             if (variable.name == str_name): return variable
-        my_print(f">>error>> \"{str_name}\" is not a variable name in dataset!")
+        self.utils.my_print(f">>error>> \"{str_name}\" is not a variable name in dataset!")
         return None
 
     def get_contingencyMatrix(self, dataset, rowVar, colVar):
@@ -50,7 +51,7 @@ class modelOneR:
         if (isinstance(colVar, str)): colVar = self.get_variableFrom_str(dataset, colVar)
         if (not (rowVar and colVar)): return ([], [], None)
         if (not (rowVar.is_discrete and colVar.is_discrete)):
-            my_print(">>error>> variables are expected to be discrete")
+            self.utils.my_print(">>error>> variables are expected to be discrete")
             return ([], [], None)
 
         rowDomain, colDomain = rowVar.values, colVar.values
@@ -88,20 +89,22 @@ class modelOneR:
         errorMatrix = 1 - cMatrix
         return (rowDomain, colDomain, errorMatrix)
 
-    def fit(self):
+    def execute(self):
+        self.utils.logHeader("Staring Executing OneR")
+        self.utils.log("Generated 1R Error Matrix:")
         dicMinError, rule, ruleExport = {}, {}, {}
 
+        # Iterate over each possible atribute
         for attribute in self.dataset.domain.attributes:
-            aStr = f":: 1R  Error Matrix: {attribute} & {self.dataset.domain.class_var}"
-            my_print(aStr)
+            self.utils.loggHeader(f"{attribute} & {self.dataset.domain.class_var}")
+            
             (classDomain, featureDomain, errorMatrix) = self.get_errorMatrix(self.dataset, attribute)
+            self.utils.print_variable_and_value(classDomain=classDomain, featureDomain=featureDomain, errorMatrix=errorMatrix)
+            
+            self.utils.print("")
+            self.utils.print(f"Rule and Error for attribute {attribute}")
 
-            print(classDomain)
-            print(featureDomain)
-            print(errorMatrix)
-            print()
-            print(f":: Rule and Error for attribute {attribute} ::")
-
+            self.utils.print("next")
             sumMinError = 0
             dicRule = {}
             dicRuleExport = {}
@@ -111,8 +114,7 @@ class modelOneR:
                 errorMinIndex = errorFeature.tolist().index(errorMin)
                 featureValue = featureDomain[featureIdx]
                 classValue = classDomain[errorMinIndex]
-                showStr = f"({attribute}, {featureValue}, {classValue}) : {errorMin:.3f}"
-                print(showStr)
+                self.utils.print(f"({attribute}, {featureValue}, {classValue}) : {errorMin:.3f}")
 
                 numberFeatureValues = len([d for d in self.dataset if d[attribute] == featureValue])
                 errorValue = numberFeatureValues * errorMin
@@ -128,8 +130,11 @@ class modelOneR:
             rule[attribute] = dicRule
             ruleExport[attribute] = dicRuleExport
 
+            self.utils.logSimpleLine()
+
+        # After all iterations chosse the atribute with less error
         minError = min(dicMinError, key=dicMinError.get)
-        my_print(f"Attribute with the least error: {minError}")
+        self.utils.my_print(f"Attribute with the least error: {minError}")
         print("\nRule:", rule.get(minError))
 
         self.export(list(ruleExport.get(minError).values()))
@@ -167,18 +172,18 @@ class modelOneR:
 
     def score(self, y_test, y_predict):
         score_accuracy = accuracy_score(y_test, y_predict)
-        my_print(f"Model accuracy: {score_accuracy}")
+        self.utils.my_print(f"Model accuracy: {score_accuracy}")
 
         score_precision = precision_score(y_test, y_predict, average="weighted", zero_division=0)
-        my_print(f"Model precision: {score_precision}")
+        self.utils.my_print(f"Model precision: {score_precision}")
 
         score_recall = recall_score(y_test, y_predict, average="weighted", zero_division=0)
-        my_print(f"Model recall: {score_recall}")
+        self.utils.my_print(f"Model recall: {score_recall}")
 
         score_f1 = f1_score(y_test, y_predict, average="weighted", zero_division=0)
-        my_print(f"Model f1 score: {score_f1}")
+        self.utils.my_print(f"Model f1 score: {score_f1}")
 
-        my_print(f"Confusion Matrix:\n {confusion_matrix(y_test, y_predict)}")
+        self.utils.my_print(f"Confusion Matrix:\n {confusion_matrix(y_test, y_predict)}")
 
     def export(self, listLines):
         listLines.insert(0, "(attr, valueAttr, valueTarget) : (error, total)")
@@ -190,9 +195,9 @@ class modelOneR:
 def main():
     fileName = "d01_lenses.tab"
     oneR = modelOneR(fileName, 0.3)
-    oneR.fit()
+    oneR.execute()
 
-    my_print(oneR.predict(["presbyopic", "myope", "yes", "normal"]))
+    oneR.utils.my_print(oneR.predict(["presbyopic", "myope", "yes", "normal"]))
 
     y_test, y_predict = oneR.predictTestDataset()
 
