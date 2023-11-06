@@ -3,7 +3,10 @@ import Orange
 import json
 import random
 
-class OneR:
+#_______________________________________________________________________________
+# This class represents the implementation of oneR not 
+# using any previous provided code 
+class NativeOneR:
     def __init__(self, filename):
         self.dataset, self.attributes, self.target, self.domains = self.load_data(filename)
         self.freq_tables, self.total_per_atr_val = None, None
@@ -129,7 +132,7 @@ class OneR:
 
 def main():
     filename = 'd01_lenses.tab'
-    one_r_classifier = OneR(filename)
+    one_r_classifier = NativeOneR(filename)
     one_r_classifier.compute_frequency_tables()
     one_r_classifier.compute_rules_and_errors()
     one_r_classifier.print_hypotheses()

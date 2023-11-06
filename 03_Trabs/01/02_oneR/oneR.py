@@ -1,9 +1,10 @@
-import sys
 from utils import Utils
-import Orange as DM
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
-
+import sys
+import Orange as DM
+#_______________________________________________________________________________
+# This class represents the implementation of oneR based on 
+# lectures provided functions (with some alterations) 
 class OneR:
 
     #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -11,27 +12,25 @@ class OneR:
     #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     #_______________________________________________________________________________
-    # Inis object modelOneR
-    def __init__(self, fileName, testPercentage):
+    # Loads dataset from file
+    def load(self, fileName):
+      print("::[Reading Input File]")
+      try:
+         dataset = DM.data.Table(fileName)
+      except Exception as e:
+         self.utils.my_print(f":: Error - cannot open the file: {fileName}")
+         sys.exit(1)  # Exit with an error code
+      return dataset
+    
+    #_______________________________________________________________________________
+    # Inits object modelOneR
+    def __init__(self, fileName):
         self.utils = Utils()
         print("::[Staring Running OneR]")
+        self.dataset = self.load(fileName)
 
-        self.dataset = self.utils.load(fileName)
-        print("::[Generated DataSets]")
-        self.utils.print_data_set("Full DataSet", self.dataset)
-
-        self.dataset.shuffle()
-        self.utils.print_data_set("Shuffled DataSet", self.dataset)
-
-        #Divid original DataSet in Train and Test
-        test = int(len(self.dataset) * testPercentage) + 1
-        train = len(self.dataset) - test
-
-        self.datasetTest = self.dataset[train:]
-        self.utils.print_data_set("Test DataSet", self.datasetTest)
-
-        #self.dataset = self.dataset[:train]
-        self.utils.print_data_set("Train DataSet", self.dataset)
+        print("::[Loaded DataSet]")
+        self.utils.print_data_set("DataSet", self.dataset)
 
     #_______________________________________________________________________________
     # get the variable dataset-structure given a string with its name
@@ -149,7 +148,6 @@ class OneR:
         self.utils.my_print( "Rule and error for: {} :".format( attribute) )
 
         # INIT DICS IN THIS ATRIBUT IDX
-        value = {}
         self.dicHypotheses[attribute], self.dicAttrAccuracy[attribute] = [], []
         total, error = 0, 0
 
@@ -170,16 +168,12 @@ class OneR:
             error += errorValue
             total += numberFeatureValues
 
-            value[featureValue] = classValue
-
-
         # SAVE VALUES
         attrTotalError = error / len(self.dataset)
         self.dicAttrError[attribute] = attrTotalError
         astr = f"{attribute} : ({int(error)}, {total})  # {attrTotalError}"
         self.dicAttrAccuracy[attribute].append(astr)
 
-        self.testValues[attribute] = value
         print()
         print(f"Total Atribut Error: {attrTotalError}")
 
@@ -187,7 +181,6 @@ class OneR:
     # "Main" Function of OneR, (model entryPoint)
     def execute(self):
         print(":: [Staring Executing OneR]")
-        self.testValues = {}
 
         # INIT DICS
         self.dicHypotheses = {}
@@ -201,84 +194,38 @@ class OneR:
             self.compute_rule(attribute, classDomain, featureDomain, errorMatrix)
 
         self.minErrorAttr = min(self.dicAttrError, key = self.dicAttrError.get)
-        self.rule = self.testValues.get(self.minErrorAttr)
 
         # PRINT RESULTS
         self.utils.loggHeader("Final results:")
         self.utils.print_arr("HYPOTHESES", "- ( attr, valueAttr, valueTarget ) : ( error, total )", self.dicHypotheses)
         self.utils.print_arr("attrACCURACY", "- attr : ( error, total ) # error / total", self.dicAttrAccuracy)
-        self.utils.my_print("One-R")
+        self.utils.my_print("One-R (Best Rules)")
         print(f"Atributo com menor erro: {self.minErrorAttr}, {self.dicAttrError[self.minErrorAttr]}")
+        print("- Reading the rules: if attr is valueAttr then targetClass is valueTarget with x probability of error")
         print("- ( attr, valueAttr, valueTarget ) : (error, total)")
         for element in self.dicHypotheses[self.minErrorAttr]:
             print(element)
-          
-    
-    #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-    #::::::::::::::::::::Test the modal results functions::::::::::::::::::::::::::
-    #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-   
-    #_______________________________________________________________________________
-    # predict
-    def predict(self, x_test):
 
-        if len(x_test) != len(self.dataset.domain.attributes):
-            raise Exception(f"Wrong number of attributes (Needs {len(self.dataset.domain.attributes)})")
+        print("\n \n:: [Finished Executing OneR]")
 
-        for i in range(len(x_test)):
-            if not isinstance(x_test[i], type(self.dataset.domain.attributes[i].values[0])):
-                raise Exception(f"Attributes needs to be a {type(self.dataset.domain.attributes[i].values[0])}")
-
-            if not x_test[i] in self.dataset.domain.attributes[i].values:
-                raise Exception(f"Attribute {i + 1} not in domain")
-
-            if self.dataset.domain.attributes[i] == self.minErrorAttr:
-                return self.rule[x_test[i]]
 
     #_______________________________________________________________________________
-    # predictTestDataset
-    def predictTestDataset(self):
-        y_test, y_predict = [], []
-
-        # Scroll through the test dataset
-        for i in range(len(self.datasetTest)):
-            # Save the predicted labels
-            y_predict.append(self.rule[str(self.datasetTest[i][self.minErrorAttr])])
-
-            # Save the true labels
-            y_test.append(self.datasetTest[i][str(self.datasetTest.domain.class_var)].value)
-
-        return y_test, y_predict
-
-    #_______________________________________________________________________________
-    # predictTestDataset
-    def score(self, y_test, y_predict):
-        score_accuracy = accuracy_score(y_test, y_predict)
-        self.utils.my_print(f"Model accuracy: {score_accuracy}")
-
-        score_precision = precision_score(y_test, y_predict, average="weighted", zero_division=0)
-        self.utils.my_print(f"Model precision: {score_precision}")
-
-        score_recall = recall_score(y_test, y_predict, average="weighted", zero_division=0)
-        self.utils.my_print(f"Model recall: {score_recall}")
-
-        score_f1 = f1_score(y_test, y_predict, average="weighted", zero_division=0)
-        self.utils.my_print(f"Model f1 score: {score_f1}")
-
-        self.utils.my_print(f"Confusion Matrix:\n {confusion_matrix(y_test, y_predict)}")
-
+    # Export Results
+    def export(self, fileName):  
+        print(":: [Exporting Results]")
+        with open(fileName, "w") as txt_file:
+            txt_file.write("(attr, valueAttr, valueTarget) : (error, total)" + "\n")
+            for element in self.dicHypotheses[self.minErrorAttr]:
+                txt_file.write(element + "\n")
 #_______________________________________________________________________________
 # main
 def main():
-    fileName = "d01_lenses.tab"
-    oneR = OneR(fileName, 0.3)
+    inputFileName = "d01_lenses.tab"
+    oneR = OneR(inputFileName)
     oneR.execute()
 
-    oneR.utils.my_print(oneR.predict(["presbyopic", "myope", "yes", "normal"]))
-
-    y_test, y_predict = oneR.predictTestDataset()
-
-    oneR.score(y_test, y_predict)
-
+    outputFileName = "out_oneR.txt"
+    oneR.export(outputFileName)
+    
 if __name__ == "__main__":
     main()

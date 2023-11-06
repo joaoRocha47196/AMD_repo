@@ -1,17 +1,4 @@
-import sys
-import Orange as DM
-
-class Utils:
-   def load(self, fileName):
-      print("::[Reading Input File]")
-
-      try:
-         dataset = DM.data.Table(fileName)
-      except Exception as e:
-         self.my_print(f":: Error - cannot open the file: {fileName}")
-         sys.exit(1)  # Exit with an error code
-      return dataset
-   
+class Utils:   
    def my_print(self, aStr):
       separator = lambda x: "_" * len( x )
       print( separator( aStr ) )
