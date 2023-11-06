@@ -1,0 +1,26 @@
+{
+    "astigmatic": {
+        "no": [
+            "soft",
+            2,
+            7
+        ],
+        "yes": [
+            "none",
+            3,
+            9
+        ]
+    },
+    "tear_rate": {
+        "normal": [
+            "soft",
+            5,
+            10
+        ],
+        "reduced": [
+            "none",
+            0,
+            6
+        ]
+    }
+}
