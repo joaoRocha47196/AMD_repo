@@ -81,12 +81,13 @@ class OneR:
     def predict(self, instance):
         print("\n- PREDICT")
         class_votes = {target_class: 0 for target_class in self.domains[self.target]}
-
+        print("best attributes:", self.best_attributes)
+        self.best_attributes.pop(0) # select the tear_rate
+        print("attributes selected:", self.best_attributes)
         for atr in self.best_attributes:
             atr_val = instance.get(atr)
             if atr_val and atr_val in self.best_rules[atr]:
                 predicted_class = self.best_rules[atr][atr_val][0]  #  get the target_class
-                print("predicted_class:", predicted_class)
                 class_votes[predicted_class] += 1
 
         # In case of ties or no rules applied, use a random prediction
