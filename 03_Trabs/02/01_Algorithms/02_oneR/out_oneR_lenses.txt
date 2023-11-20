@@ -1,0 +1,3 @@
+(attr, valueAttr, valueTarget) : (error, total)
+(astigmatic, no, soft) : (2, 6)
+(astigmatic, yes, none) : (0, 5)
