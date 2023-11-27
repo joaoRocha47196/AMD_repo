@@ -291,8 +291,8 @@ class OneR:
     def test(self):
         print()
         print(":: [Starting Testing the Model]")
-        self.utils.my_print(self.predict(["presbyopic", "myope", "yes", "normal"]))       
-        #self.utils.my_print(self.predict(["CONVEX",	"SMOOTH",	"WHITE",	"BRUISES",	"ALMOND",	"FREE",	"CROWDED",	"NARROW"	,"WHITE",	"TAPERING",	"BULBOUS",	"SMOOTH",	"SMOOTH",	"WHITE",	"WHITE",	"PARTIAL",	"WHITE",	"ONE",	"PENDANT",	"PURPLE",	"SEVERAL",	"WOODS"]))
+       #self.utils.my_print(self.predict(["presbyopic", "myope", "yes", "normal"]))
+        self.utils.my_print(self.predict(["CONVEX",	"SMOOTH",	"WHITE",	"BRUISES",	"ALMOND",	"FREE",	"CROWDED",	"NARROW"	,"WHITE",	"TAPERING",	"BULBOUS",	"SMOOTH",	"SMOOTH",	"WHITE",	"WHITE",	"PARTIAL",	"WHITE",	"ONE",	"PENDANT",	"PURPLE",	"SEVERAL",	"WOODS"]))
         y_test, y_predict = self.predictTestDataset()
         self.score(y_test, y_predict)
 
@@ -309,13 +309,13 @@ class OneR:
 # main
 def main():
     inputFileName = "d01_lenses.tab"
-    inputFileName2 = "dataset_long_name_PTS_INPUT_v01.tab"
-    oneR = OneR(inputFileName)
+    inputFileName2 = "dataset_long_name_ORIGINAL.tab"
+    oneR = OneR(inputFileName2)
     oneR.execute()
     oneR.test()
     outputFileName = "out_oneR_lenses.txt"
     outputFileName2 = "out_oneR_mushrooms.txt"
-    oneR.export(outputFileName)
+    oneR.export(outputFileName2)
     
 if __name__ == "__main__":
     main()

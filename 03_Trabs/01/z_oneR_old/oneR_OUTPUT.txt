@@ -1,3 +1,4 @@
 (attr, valueAttr, valueTarget) : (error, total)
-(prescription, hypermetrope, none) : (2, 7)
-(prescription, myope, hard) : (2, 4)
+(age, pre-presbyopic, none) : (0, 2)
+(age, presbyopic, none) : (2, 4)
+(age, young, hard) : (0, 1)

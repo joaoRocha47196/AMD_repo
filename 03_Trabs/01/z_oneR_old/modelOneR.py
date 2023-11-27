@@ -1,6 +1,4 @@
-import sys
 from utils import Utils
-import Orange as DM
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
@@ -194,7 +192,7 @@ class modelOneR:
 
 def main():
     fileName = "d01_lenses.tab"
-    oneR = modelOneR(fileName, 0.3)
+    oneR = modelOneR(fileName, 0.5)
     oneR.execute()
 
     oneR.utils.my_print(oneR.predict(["presbyopic", "myope", "yes", "normal"]))

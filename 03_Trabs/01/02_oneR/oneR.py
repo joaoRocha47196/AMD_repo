@@ -2,7 +2,9 @@ from utils import Utils
 import numpy as np
 import sys
 import Orange as DM
-#_______________________________________________________________________________
+
+
+# _______________________________________________________________________________
 # This class represents the implementation of oneR based on 
 # lectures provided functions (with some alterations) 
 class OneR:
@@ -11,18 +13,18 @@ class OneR:
     #:::::::::::::::::::::::::::::::::::::Other Functions::::::::::::::::::::::::::
     #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # Loads dataset from file
     def load(self, fileName):
-      print("::[Reading Input File]")
-      try:
-         dataset = DM.data.Table(fileName)
-      except Exception as e:
-         self.utils.my_print(f":: Error - cannot open the file: {fileName}")
-         sys.exit(1)  # Exit with an error code
-      return dataset
-    
-    #_______________________________________________________________________________
+        print("::[Reading Input File]")
+        try:
+            dataset = DM.data.Table(fileName)
+        except Exception as e:
+            self.utils.my_print(f":: Error - cannot open the file: {fileName}")
+            sys.exit(1)  # Exit with an error code
+        return dataset
+
+    # _______________________________________________________________________________
     # Inits object modelOneR
     def __init__(self, fileName):
         self.utils = Utils()
@@ -32,7 +34,7 @@ class OneR:
         print("::[Loaded DataSet]")
         self.utils.print_data_set("DataSet", self.dataset)
 
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # get the variable dataset-structure given a string with its name
     def get_variableFrom_str(self, dataset, str_name):
         variable_list = dataset.domain.variables
@@ -45,7 +47,7 @@ class OneR:
     #::::::::::::::::::::OnewR related Functions:::::::::::::::::::::::::::::::::::
     #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # contingencyMatrix; i.e., the joint-frequency table
     # this implementation does not account for missing-values
     # M(row, column)
@@ -67,25 +69,25 @@ class OneR:
             rowIndex, colIndex = rowDomain.index(rowValue), colDomain.index(colValue)
             contingencyMatrix[rowIndex, colIndex] += 1
         return (rowDomain, colDomain, contingencyMatrix)
-    
-    #_______________________________________________________________________________
+
+    # _______________________________________________________________________________
     # compute_frequency
-    def compute_frequency(self, rowVar, colVar ):    
-        ( rowDomain, colDomain, cMatrix ) = self.get_frequency(rowVar, colVar )  
-        self.utils.my_print( "Domain Values for: {} & {} :".format( rowVar.name, colVar.name ) )
-        print( rowDomain )
-        print( colDomain )
-        self.utils.my_print( "Frequency Table for: {} & {} :".format( rowVar.name, colVar.name ) )
-        print( cMatrix )
+    def compute_frequency(self, rowVar, colVar):
+        (rowDomain, colDomain, cMatrix) = self.get_frequency(rowVar, colVar)
+        self.utils.my_print("Domain Values for: {} & {} :".format(rowVar.name, colVar.name))
+        print(rowDomain)
+        print(colDomain)
+        self.utils.my_print("Frequency Table for: {} & {} :".format(rowVar.name, colVar.name))
+        print(cMatrix)
         for row in rowDomain:
             showStr = "<" + row + "> "
             for col in colDomain:
-                showStr += col + ": " + str(cMatrix[rowDomain.index(row), colDomain.index( col )]) + " | "
-            print( showStr )
-        
-        return ( rowDomain, colDomain, cMatrix )
-    
-    #_______________________________________________________________________________
+                showStr += col + ": " + str(cMatrix[rowDomain.index(row), colDomain.index(col)]) + " | "
+            print(showStr)
+
+        return (rowDomain, colDomain, cMatrix)
+
+    # _______________________________________________________________________________
     # P( H | E )
     # H means Hypothesis, E means Evidence
     # a frequency approach
@@ -103,27 +105,26 @@ class OneR:
             for col in range(len_colDomain):
                 cMatrix[row, col] = cMatrix[row, col] / E_marginal[col]
         return (rowDomain, colDomain, cMatrix)
-    
-    #_______________________________________________________________________________
+
+    # _______________________________________________________________________________
     # P( H | E )
     # show matriz and textual description
-    def compute_probability( self, dataset, H, E ):
-        ( rowDomain, colDomain, cMatrix ) = self.get_probability(dataset, H, E )
-        self.utils.my_print( "Probability Table for: {} & {} :".format( H, E ) )
+    def compute_probability(self, dataset, H, E):
+        (rowDomain, colDomain, cMatrix) = self.get_probability(dataset, H, E)
+        self.utils.my_print("Probability Table for: {} & {} :".format(H, E))
 
-        print( cMatrix )
+        print(cMatrix)
         print()
 
         for h in rowDomain:
             for e in colDomain:
-                rowIndex, colIndex = rowDomain.index( h ), colDomain.index( e )
-                P_h_e = cMatrix[ rowIndex, colIndex ]
-                print( "  P({} | {}) = {:.3f}".format( h, e, P_h_e ) )
+                rowIndex, colIndex = rowDomain.index(h), colDomain.index(e)
+                P_h_e = cMatrix[rowIndex, colIndex]
+                print("  P({} | {}) = {:.3f}".format(h, e, P_h_e))
 
         return (rowDomain, colDomain, cMatrix)
 
-
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # get_error
     def get_error(self, dataset, feature):
         if (isinstance(feature, str)): feature = self.get_variableFrom_str(dataset, feature)
@@ -133,19 +134,19 @@ class OneR:
 
         errorMatrix = 1 - cMatrix
         return (rowDomain, colDomain, errorMatrix)
-    
-    #_______________________________________________________________________________
+
+    # _______________________________________________________________________________
     # error matrix for a given feature and considering the datatset class
     def compute_error(self, dataset, feature):
         (rowDomain, colDomain, errorMatrix) = self.get_error(dataset, feature)
-        self.utils.my_print( "Error Table for: {} & {} :".format( dataset.domain.class_var, feature ) )
+        self.utils.my_print("Error Table for: {} & {} :".format(dataset.domain.class_var, feature))
         print(errorMatrix)
         return (rowDomain, colDomain, errorMatrix)
-    
-     #_______________________________________________________________________________
+
+    # _______________________________________________________________________________
     # compute_rule
-    def compute_rule(self, attribute, classDomain, featureDomain, errorMatrix ):
-        self.utils.my_print( "Rule and error for: {} :".format( attribute) )
+    def compute_rule(self, attribute, classDomain, featureDomain, errorMatrix):
+        self.utils.my_print("Rule and error for: {} :".format(attribute))
 
         # INIT DICS IN THIS ATRIBUT IDX
         self.dicHypotheses[attribute], self.dicAttrAccuracy[attribute] = [], []
@@ -153,8 +154,8 @@ class OneR:
 
         for feature in range(len(featureDomain)):
             errorFeature = errorMatrix[:, feature]
-            errorMin = min( errorFeature )
-            errorMinIndex = errorFeature.tolist().index( errorMin )
+            errorMin = min(errorFeature)
+            errorMinIndex = errorFeature.tolist().index(errorMin)
             featureValue = featureDomain[feature]
             classValue = classDomain[errorMinIndex]
             print(f"({attribute}, {featureValue}, {classValue}) : {errorMin:.3f}")
@@ -177,7 +178,7 @@ class OneR:
         print()
         print(f"Total Atribut Error: {attrTotalError}")
 
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # "Main" Function of OneR, (model entryPoint)
     def execute(self):
         print(":: [Staring Executing OneR]")
@@ -186,14 +187,14 @@ class OneR:
         self.dicHypotheses = {}
         self.dicAttrAccuracy = {}
         self.dicAttrError = {}
-        
+
         # Iterate over each possible atribute
         for attribute in self.dataset.domain.attributes:
             self.utils.loggHeader(f"{attribute} & {self.dataset.domain.class_var}")
             (classDomain, featureDomain, errorMatrix) = self.compute_error(self.dataset, attribute)
             self.compute_rule(attribute, classDomain, featureDomain, errorMatrix)
 
-        self.minErrorAttr = min(self.dicAttrError, key = self.dicAttrError.get)
+        self.minErrorAttr = min(self.dicAttrError, key=self.dicAttrError.get)
 
         # PRINT RESULTS
         self.utils.loggHeader("Final results:")
@@ -208,16 +209,17 @@ class OneR:
 
         print("\n \n:: [Finished Executing OneR]")
 
-
-    #_______________________________________________________________________________
+    # _______________________________________________________________________________
     # Export Results
-    def export(self, fileName):  
+    def export(self, fileName):
         print(":: [Exporting Results]")
         with open(fileName, "w") as txt_file:
             txt_file.write("(attr, valueAttr, valueTarget) : (error, total)" + "\n")
             for element in self.dicHypotheses[self.minErrorAttr]:
                 txt_file.write(element + "\n")
-#_______________________________________________________________________________
+
+
+# _______________________________________________________________________________
 # main
 def main():
     inputFileName = "d01_lenses.tab"
@@ -226,6 +228,7 @@ def main():
 
     outputFileName = "out_oneR.txt"
     oneR.export(outputFileName)
-    
+
+
 if __name__ == "__main__":
     main()
