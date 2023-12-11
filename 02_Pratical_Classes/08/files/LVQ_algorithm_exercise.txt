@@ -1,0 +1,96 @@
+Paulo Trigo Silva																					
+AMD@MERCM - Aprendizagem e Minera��o de Dados																					
+																					
+LVQ - Learning Vector Quantization																					
+1 Epoch Evolution																					
+					Dataset						Dataset & Codebook Vectors										
+																					
+																					
+Dataset																					
+X1	X2	Y																			
+3,393533211	2,331273381	0																			
+3,110073483	1,781539638	0																			
+1,343808831	3,368360954	0																			
+3,582294042	4,67917911	0																			
+2,280362439	2,866990263	0																			
+7,423436942	4,696522875	1																			
+5,745051997	3,533989803	1																			
+9,172168622	2,511101045	1																			
+7,792783481	3,424088941	1																			
+7,939820817	0,791637231	1																			
+																					
+Codebook Vectors																					
+X1	X2	Y																			
+3,582294042	0,791637231	0																			
+7,792783481	2,331273381	0																			
+7,939820817	2,866990263	1																			
+3,393533211	4,67917911	1																			
+																					
+Learning Rate																					
+0,7																					
+																					
+Training																					
+	Codebook vectors			Input			Distances					Codebook vectors t+1									
+#	X1	X2	Y	X1	X2	Y	(X1-X1)^2	(x2-X2)^2	Sum	Distance	BMU?	X1	X2	Y		CHECK (oneEpoch)					
+1	3,582294042	0,791637231	0	3,393533211	2,331273381	0					BMU					notOk					
+2	7,792783481	2,331273381	0	3,393533211	2,331273381	0					BMU					notOk					
+3	7,939820817	2,866990263	1	3,393533211	2,331273381	0					BMU					notOk					
+4	3,393533211	4,67917911	1	3,393533211	2,331273381	0					BMU					notOk					
+1	3,582294042	0,791637231	0								BMU					notOk					
+2	7,792783481	2,331273381	0								BMU					notOk					
+3	7,939820817	2,866990263	1								BMU					notOk					
+4	3,393533211	4,67917911	1								BMU					notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+1																notOk					
+2																notOk					
+3																notOk					
+4																notOk					
+																					
+																					
+Trained Codebook Vectors - after 1 epoch																					
+X1	X2	Y														CHECK (codebook-afterOneEpoch)					
+0	0	0														notOk					
+0	0	0														notOk					
+0	0	0														notOk					
+0	0	0														notOk					
+																					
+
+
+Training																
+	Codebook vectors			Input			Distances					Codebook vectors t+1				
+#	X1	X2	Y	X1	X2	Y	(X1-X1)^2	(x2-X2)^2	Sum	Distance	BMU?	X1	X2	Y		CHECK (oneEpoch)
+1	3,582294042	0,791637231	0	3,393533211	2,331273381	0	0,035630651	2,370479474	2,406110125	1,551164119	BMU	3,607235498	0,791637231			notOk
+2	7,792783481	2,331273381	0	3,393533211	2,331273381	0	19,35340294	0	19,35340294	4,39925027						notOk
+3	7,939820817	2,866990263	1	3,393533211	2,331273381	0	20,668731	0,286992578	20,95572357	4,577742192						notOk
+4	3,393533211	4,67917911	1	3,393533211	2,331273381	0	0	5,512661312	5,512661312	2,347905729						notOk
+1	3,582294042	0,791637231	0								BMU					notOk
+2	7,792783481	2,331273381	0								BMU					notOk
+3	7,939820817	2,866990263	1								BMU					notOk
+4	3,393533211	4,67917911	1								BMU					notOk

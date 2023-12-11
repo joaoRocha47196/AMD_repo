@@ -1,0 +1,162 @@
+You are now connected to database "db_e_commerce_sample" as user "postgres".
+DROP VIEW
+DROP VIEW
+DROP VIEW
+DROP VIEW
+DROP VIEW
+ total_events 
+--------------
+           63
+(1 row)
+
+ total_number_of_cookies 
+-------------------------
+                      29
+(1 row)
+
+CREATE VIEW
+              cookie_id               |         session_id         | number_of_events_per_session 
+--------------------------------------+----------------------------+------------------------------
+ 036b5c3e-0334-4f2a-81a2-c24e0dfa8148 | 3a61a2dpb2bobbs92levc43j66 |                            1
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 |                            8
+ 1612884d-58da-406a-b007-33983e82adac | od0ka26s2kire63m6c77s3rdl3 |                            1
+ 167d5318-49d2-4421-962b-6b6ad3aadd15 | mar3laqvinqcl46j4og64paak1 |                            1
+ 22aeaff4-9791-44ae-b220-c6fa8e98e4f8 | 0up8uaf6cafv0121i3kcs85616 |                            1
+ 2f8dfa48-f9d9-4f04-8d97-d645b0b4947e | m80lha659jmg1qlc3r630qjqv4 |                            1
+ 31311b70-78c0-471f-ba2e-269f00b29a04 | umkk748spvrbecgof3vit830m6 |                            1
+ 3c91ed3c-042b-44b9-9d7f-c36ce740562a | 405dmadbnqfktm4k5j0pks3om7 |                            1
+ 59c77449-67e8-4de9-b4e1-095fe84b1254 | 6cpv6gpeo1re7s9ne8jkjbvm83 |                            3
+ 5f3e9da7-0bb4-4cc4-8de7-89b44a1023d3 | ci06ae4atc9u0dfun1n7nv1ie5 |                            1
+ 693a6f46-7cf5-4cd7-8933-97dcca1d6fdf | bfi071h6ar7domu7mnndtjg1m5 |                            1
+ 6e403e72-500b-458d-aa35-b4c4373c73bc | n1msd84bd0r096uiimu8il48j7 |                            1
+ 6f689646-1920-48ad-8df4-4fe540db5308 | ga12i0djvqq9libkd1t4macfi4 |                            1
+ 736f45e0-4271-4efc-9b58-3450ed0d000c | cs1igit0u5ap1rq4oqsud63nu5 |                            2
+ 74627039-ec27-47de-bc53-aea9af77c57f | gto8ua4s9inf3nk0rbr18srs40 |                            1
+ 74d4145d-cf6f-4b43-b9e6-4fbc35ec41cc | h7eai0bifok668t767mvj2jki4 |                            1
+ 8bd84281-57a2-4e51-acea-87d6e2e5a20f | a1ils3inahkk684lhh586glvk4 |                            1
+ a3f81e24-a1d0-4cd7-9d34-e9603f7fb95c | feaponedcoofdpg04h75u5ibq2 |                            1
+ ab0e01ea-e0eb-4480-a3ee-0497045ef15a | isua0solovk9s62cmbp1thf8p0 |                            1
+ b016522e-b282-4478-aa7a-8174b7406d83 | g2fq5ajaaulcnadf2tdkj0bhh0 |                            1
+ b60c0896-35fd-495d-958b-9ebf25791305 | 51gi4j1us7lb0a9e1cbsvk13a5 |                            1
+ bb13c83e-8668-4982-b4ea-ecf31e5fdf07 | 05o5118bk5fiqgm7j40a58nbu1 |                            1
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 |                           10
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 |                           12
+ c77f1c88-2911-47f1-8e50-b4a58aa92df4 | itctriv4fcb62598eg1a3684j5 |                            1
+ cd81dcbd-efed-4bef-9a5e-724ceb65e886 | 49ebv4pc90gp0b6ebje1npl610 |                            3
+ d3dfe2b7-a365-4337-9189-110b6ad854aa | thci44amqft12urje29f0jvrv6 |                            1
+ dd9fca41-f51d-4e22-ada3-00c964bfcf88 | p5o0r6jek8rbaisnan2qoqh9v7 |                            2
+ dfe5bf3c-6f8b-49ec-8170-b75d3a26bd50 | 1piil9ld1khrt6oo53k9cofft5 |                            1
+ e597aa70-c8fc-4102-bc97-f76f2ebbae0e | f6bggufsdv9vk9sm030erac453 |                            1
+(30 rows)
+
+CREATE VIEW
+              cookie_id               | number_of_sessions | total_events 
+--------------------------------------+--------------------+--------------
+ 036b5c3e-0334-4f2a-81a2-c24e0dfa8148 |                  1 |            1
+ 108779d6-093c-4224-a8f2-6777e140aa14 |                  1 |            8
+ 1612884d-58da-406a-b007-33983e82adac |                  1 |            1
+ 167d5318-49d2-4421-962b-6b6ad3aadd15 |                  1 |            1
+ 22aeaff4-9791-44ae-b220-c6fa8e98e4f8 |                  1 |            1
+ 2f8dfa48-f9d9-4f04-8d97-d645b0b4947e |                  1 |            1
+ 31311b70-78c0-471f-ba2e-269f00b29a04 |                  1 |            1
+ 3c91ed3c-042b-44b9-9d7f-c36ce740562a |                  1 |            1
+ 59c77449-67e8-4de9-b4e1-095fe84b1254 |                  1 |            3
+ 5f3e9da7-0bb4-4cc4-8de7-89b44a1023d3 |                  1 |            1
+ 693a6f46-7cf5-4cd7-8933-97dcca1d6fdf |                  1 |            1
+ 6e403e72-500b-458d-aa35-b4c4373c73bc |                  1 |            1
+ 6f689646-1920-48ad-8df4-4fe540db5308 |                  1 |            1
+ 736f45e0-4271-4efc-9b58-3450ed0d000c |                  1 |            2
+ 74627039-ec27-47de-bc53-aea9af77c57f |                  1 |            1
+ 74d4145d-cf6f-4b43-b9e6-4fbc35ec41cc |                  1 |            1
+ 8bd84281-57a2-4e51-acea-87d6e2e5a20f |                  1 |            1
+ a3f81e24-a1d0-4cd7-9d34-e9603f7fb95c |                  1 |            1
+ ab0e01ea-e0eb-4480-a3ee-0497045ef15a |                  1 |            1
+ b016522e-b282-4478-aa7a-8174b7406d83 |                  1 |            1
+ b60c0896-35fd-495d-958b-9ebf25791305 |                  1 |            1
+ bb13c83e-8668-4982-b4ea-ecf31e5fdf07 |                  1 |            1
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 |                  2 |           22
+ c77f1c88-2911-47f1-8e50-b4a58aa92df4 |                  1 |            1
+ cd81dcbd-efed-4bef-9a5e-724ceb65e886 |                  1 |            3
+ d3dfe2b7-a365-4337-9189-110b6ad854aa |                  1 |            1
+ dd9fca41-f51d-4e22-ada3-00c964bfcf88 |                  1 |            2
+ dfe5bf3c-6f8b-49ec-8170-b75d3a26bd50 |                  1 |            1
+ e597aa70-c8fc-4102-bc97-f76f2ebbae0e |                  1 |            1
+(29 rows)
+
+CREATE VIEW
+ number_of_cookies | number_of_sessions 
+-------------------+--------------------
+                28 |                  1
+                 1 |                  2
+(2 rows)
+
+CREATE VIEW
+ number_of_events_per_session | number_of_cookies 
+------------------------------+-------------------
+                            1 |                23
+                            2 |                 2
+                            3 |                 2
+                            8 |                 1
+                           10 |                 1
+                           12 |                 1
+(6 rows)
+
+CREATE VIEW
+              cookie_id               |         session_id         |                                                  product_gui                                                   
+--------------------------------------+----------------------------+----------------------------------------------------------------------------------------------------------------
+ 036b5c3e-0334-4f2a-81a2-c24e0dfa8148 | 3a61a2dpb2bobbs92levc43j66 | /spy_pen/prod840.html?gclid=COvYlNDGra0CFYQLfAodnWyeoQ
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | /?gclid=COXthpzJra0CFYEhtAod7lDzGw
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Divertimento
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Estilo
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Jogos
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | RC
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Stock Off
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Stock Off
+ 108779d6-093c-4224-a8f2-6777e140aa14 | 1804vgqeol0po5mudfrae5fjt0 | Tecnologia
+ 1612884d-58da-406a-b007-33983e82adac | od0ka26s2kire63m6c77s3rdl3 | /customer/account/login/
+ 167d5318-49d2-4421-962b-6b6ad3aadd15 | mar3laqvinqcl46j4og64paak1 | display.product*ljv_0054*Rel├│gio Desportivo Espi├úo com C├ómara de Filmar 
+ 2f8dfa48-f9d9-4f04-8d97-d645b0b4947e | m80lha659jmg1qlc3r630qjqv4 | /customer/account/login/
+ 31311b70-78c0-471f-ba2e-269f00b29a04 | umkk748spvrbecgof3vit830m6 | Tecnologia
+ 3c91ed3c-042b-44b9-9d7f-c36ce740562a | 405dmadbnqfktm4k5j0pks3om7 | /catalog/products.php?cat=6
+ 5f3e9da7-0bb4-4cc4-8de7-89b44a1023d3 | ci06ae4atc9u0dfun1n7nv1ie5 | /customer/account/forgotpassword/
+ 6e403e72-500b-458d-aa35-b4c4373c73bc | n1msd84bd0r096uiimu8il48j7 | /customer/account/login/
+ 6f689646-1920-48ad-8df4-4fe540db5308 | ga12i0djvqq9libkd1t4macfi4 | display.product*ljv_0054*Rel├│gio Desportivo Espi├úo com C├ómara de Filmar 
+ 736f45e0-4271-4efc-9b58-3450ed0d000c | cs1igit0u5ap1rq4oqsud63nu5 | /catalog/products.php?cat=6&gclid=CM6U1KLDra0CFUhrfAodhFdTnQ
+ 736f45e0-4271-4efc-9b58-3450ed0d000c | cs1igit0u5ap1rq4oqsud63nu5 | Spy
+ 74627039-ec27-47de-bc53-aea9af77c57f | gto8ua4s9inf3nk0rbr18srs40 | /customer/account/login/
+ 74d4145d-cf6f-4b43-b9e6-4fbc35ec41cc | h7eai0bifok668t767mvj2jki4 | display.product*ljv_0457*Esmagador de Latas - Can Crusher
+ 8bd84281-57a2-4e51-acea-87d6e2e5a20f | a1ils3inahkk684lhh586glvk4 | /destaques/prod1103.html
+ a3f81e24-a1d0-4cd7-9d34-e9603f7fb95c | feaponedcoofdpg04h75u5ibq2 | display.product*ljv_0014*Balan├ºa Digital para Malas - Essencial para n├úo pagar excesso de bagagem no aeroporto
+ ab0e01ea-e0eb-4480-a3ee-0497045ef15a | isua0solovk9s62cmbp1thf8p0 | /customer/account/login/
+ b016522e-b282-4478-aa7a-8174b7406d83 | g2fq5ajaaulcnadf2tdkj0bhh0 | display.product*ljv_0436*HD HERO2 - Outdoor Edition
+ b60c0896-35fd-495d-958b-9ebf25791305 | 51gi4j1us7lb0a9e1cbsvk13a5 | /?gclid=CJfSianEra0CFZMhtAodWC3Vug
+ bb13c83e-8668-4982-b4ea-ecf31e5fdf07 | 05o5118bk5fiqgm7j40a58nbu1 | /customer/account/login/
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | Botas
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | Botins
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.category*homepage
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4118*Botins em Camur├ºa Azul Intenso e detalhes Dourados - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4211*Galochas em Castanho Chocolate - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4214*Botas em Pele Taupe  e Detalhes Cruzados Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4216*Botas Cavaleiro em Pele Camel - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4402*Sabrinas em Pelo Preto e Cristais Swarovski - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | display.product*lon_4509*Bota com Stiletto Dourado e aplica├º├Áes de P├¬lo e Swarovski -  Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | 89qd63l1qb56t8fhaf3fts82p5 | Sabrinas e Mocassins
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | Botas
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | Botins
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | Botins
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.category*homepage
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.category*homepage
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4007*Pumps em Pele com aplica├º├úo de Flor em Cristais Swarovski  - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4102*Botins em pele Castanha e cristais de Swarovski e p├¬lo - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4118*Botins em Camur├ºa Azul Intenso e detalhes Dourados - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4207*Botas Cavaleiro em Pele Preta - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4211*Galochas em Castanho Chocolate - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | display.product*lon_4402*Sabrinas em Pelo Preto e Cristais Swarovski - Lu├¡s Onofre
+ bc7e5e60-f715-43c0-bd49-be3c1aee6755 | nqou1i7g761dkoq7cjq1ul9785 | Sabrinas e Mocassins
+ c77f1c88-2911-47f1-8e50-b4a58aa92df4 | itctriv4fcb62598eg1a3684j5 | /customer/account/login/
+ cd81dcbd-efed-4bef-9a5e-724ceb65e886 | 49ebv4pc90gp0b6ebje1npl610 | /?gclid=CKrBwsDGra0CFVQLfAod0AOzmA
+ cd81dcbd-efed-4bef-9a5e-724ceb65e886 | 49ebv4pc90gp0b6ebje1npl610 | display.category*homepage
+ cd81dcbd-efed-4bef-9a5e-724ceb65e886 | 49ebv4pc90gp0b6ebje1npl610 | Tecnologia
+ d3dfe2b7-a365-4337-9189-110b6ad854aa | thci44amqft12urje29f0jvrv6 | /customer/account/login/
+(54 rows)
+
